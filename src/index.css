@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --header-bgcolor: #27292c;
+    --header-color: #ff7b00;
+    --main-bgcolor: #000;
+    --main-color: #fff;
+    --button-bgcolor: #303030;
+    --button-color: #f0f0f0;
+    --button-selected-bgcolor: #906030;
+    --button-selected-bordercolor: #ff7b00;
+    --code-bgcolor: #303030;
+    --code-color: #ff7b00;
+    --code-source: #909090;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    background-color: var(--main-bgcolor);
+    color: var(--main-color);
+}
+
+#app {
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    background-color: var(--header-bgcolor);
+    color: var(--header-color);
+    padding: 10px;
+}
+
+.easings {
+    display: flex;
+    flex-direction: row;
+    gap: 3px;
+    padding: 10px;
+    overflow-x: auto;
+    width: 100%;
+}
+
+.easings::-webkit-scrollbar {
+    height: 16px;
+}
+
+.easings::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 3px;
+}
+
+.easings::-webkit-scrollbar-thumb:hover, .easings::-webkit-scrollbar-thumb:active {
+    background: var(--header-color);
+}
+
+.easings__button {
+    border: none;
+    width: 78px;
+    height: 108px;
+    background-color: var(--button-bgcolor);
+    color: var(--button-color);
+    font-size: 0.7rem;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    padding: 4px 2px;
+    align-items: center;
+    gap: 2px;
+}
+
+.easings__button--selected {
+    background-color: var(--button-selected-bgcolor);
+    border: 1px solid var(--button-selected-bordercolor);
+    color: var(--button-selected-bordercolor);
+}
+
+.easingCode {
+    margin: 10px;
+    padding: 10px;
+    background-color: var(--code-bgcolor);
+    color: var(--code-color);
+}
+
+.easingGraph {
+    margin: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.easingGraph__params {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 10px;
+    width: 220px;
+    font-size: 1.2rem;
+}
+
+.easingGraph__slider {
+    -webkit-appearance: none;
+    appearance: none;
+    margin-left: 8px;
+    height: 14px;
+    background-color: #303030;
+}
+
+.easingGraph__slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    background: var(--button-selected-bordercolor);
+    cursor: pointer;
+}
+
+.easingCode__source, .easingCode__source a:link, .easingCode__source a:visited {
+    padding-top: 18px;
+    font-size: 0.8rem;
+    text-align: right;
+    font-style: italic;
+    color: var(--code-source);
+}
