@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 const horizBorder = 30;
 const vertBorder = 80;
 
-
 // Props:
 // - selectedFunction
 // - params
@@ -35,7 +34,12 @@ export default function EasingGraph(props) {
                 c = props.selectedFunction.fn(t);
             }
             ctx.fillStyle = `rgb(${c * 255}, ${c * 255}, ${c * 255})`;
-            ctx.fillRect(x, vertBorder, graphWidth * gradientStep + 1, graphHeight);
+            ctx.fillRect(
+                x,
+                vertBorder,
+                graphWidth * gradientStep + 1,
+                graphHeight
+            );
         }
 
         ctx.beginPath();
@@ -52,9 +56,17 @@ export default function EasingGraph(props) {
         // ctx.moveTo(horizBorder, canvas.height - vertBorder);
         // ctx.moveTo(horizBorder, (1 - props.selectedFunction.fn(0, params.a, params.b)) * graphHeight + vertBorder);
         if (Object.keys(params).length) {
-            ctx.moveTo(horizBorder, (1 - props.selectedFunction.fn(0, ...Object.values(params))) * graphHeight + vertBorder);
+            ctx.moveTo(
+                horizBorder,
+                (1 - props.selectedFunction.fn(0, ...Object.values(params))) *
+                    graphHeight +
+                    vertBorder
+            );
         } else {
-            ctx.moveTo(horizBorder, (1 - props.selectedFunction.fn(0)) * graphHeight + vertBorder);
+            ctx.moveTo(
+                horizBorder,
+                (1 - props.selectedFunction.fn(0)) * graphHeight + vertBorder
+            );
         }
 
         for (let t = 0; t <= 1.001; t += 0.005) {
@@ -77,9 +89,13 @@ export default function EasingGraph(props) {
         // Draw parameter marker
         if (params.a !== undefined) {
             const markerX = params.a * graphWidth + horizBorder;
-            const markerY = (1 - (params.b !== undefined ? 
-                params.b : 
-                props.selectedFunction.fn(params.a, params.a))) * graphHeight + vertBorder;
+            const markerY =
+                (1 -
+                    (params.b !== undefined
+                        ? params.b
+                        : props.selectedFunction.fn(params.a, params.a))) *
+                    graphHeight +
+                vertBorder;
             ctx.beginPath();
             ctx.moveTo(markerX - 5, markerY);
             ctx.lineTo(markerX + 5, markerY);
@@ -115,32 +131,38 @@ export default function EasingGraph(props) {
         }
     };
 
-
     return (
         <div className="easingGraph">
             <canvas
                 id="easingCanvas"
+                className="easingGraph__canvas"
                 width={500}
                 height={600}
-                className="easingGraph__canvas"
                 onClick={handleCanvasClick}
             ></canvas>
             <div className="easingGraph__params">
                 <h4>{props.selectedFunction.name}</h4>
-                {Object.entries(params).map(([key, value]) => (
-                    <label key={key} className={"easingGraph__param"}>
-                        {key}: {parseFloat(value).toFixed(2)}
-                        <input
-                            type="range"
-                            min="0"
-                            max="1"
-                            step="0.01"
-                            value={value}
-                            onChange={(e) => setParams({ ...params, [key]: parseFloat(e.target.value) })}
-                            className="easingGraph__slider"
-                        />
-                    </label>
-                ))}
+                <div className="easingGraph__params-list">
+                    {Object.entries(params).map(([key, value]) => (
+                        <label key={key} className={"easingGraph__param"}>
+                            {key}: {parseFloat(value).toFixed(2)}
+                            <input
+                                type="range"
+                                min="0"
+                                max="1"
+                                step="0.01"
+                                value={value}
+                                onChange={(e) =>
+                                    setParams({
+                                        ...params,
+                                        [key]: parseFloat(e.target.value),
+                                    })
+                                }
+                                className="easingGraph__slider"
+                            />
+                        </label>
+                    ))}
+                </div>
             </div>
         </div>
     );
