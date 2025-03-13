@@ -53,8 +53,6 @@ export default function EasingGraph(props) {
         ctx.stroke();
 
         ctx.beginPath();
-        // ctx.moveTo(horizBorder, canvas.height - vertBorder);
-        // ctx.moveTo(horizBorder, (1 - props.selectedFunction.fn(0, params.a, params.b)) * graphHeight + vertBorder);
         if (Object.keys(params).length) {
             ctx.moveTo(
                 horizBorder,
@@ -113,11 +111,16 @@ export default function EasingGraph(props) {
         const canvas = ev.currentTarget;
         const rect = canvas.getBoundingClientRect();
 
-        const graphWidth = canvas.width - horizBorder * 2;
-        const graphHeight = canvas.height - vertBorder * 2;
+        const graphW = (canvas.width - horizBorder * 2) * (rect.width / canvas.width);
+        const graphH = (canvas.height - vertBorder * 2) * (rect.height / canvas.height);
 
-        let x = (ev.clientX - rect.left - horizBorder) / graphWidth;
-        let y = 1 - (ev.clientY - rect.top - vertBorder) / graphHeight;
+        const pixelX = ev.clientX - rect.left - (horizBorder * rect.width / canvas.width);
+        const pixelY = ev.clientY - rect.top - (vertBorder * rect.height / canvas.height);
+
+        let x = pixelX / graphW;
+        let y = 1 - pixelY / graphH;
+
+        console.log(`Click @(${ev.clientX}, ${ev.clientY}) on canvas(${canvas.width}, ${canvas.height}) rect(${rect.width}, ${rect.height})@(${rect.left}, ${rect.top}) -> (${x}, ${y})`);
 
         x = x < 0 ? 0 : x > 1 ? 1 : x;
         y = y < 0 ? 0 : y > 1 ? 1 : y;
