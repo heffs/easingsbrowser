@@ -14,7 +14,7 @@ export default function EasingsList(props) {
             }`}
             onClick={() => props.setSelectedFunction(func)}
         >
-            <img src={`/icons/${func.name.replaceAll(" ", "_").toLowerCase() + ".png"}`} alt={func.name} />
+            <img src={`./icons/${func.name.replaceAll(" ", "_").toLowerCase() + ".png"}`} alt={func.name} />
             {func.name}
         </button>);
     });
